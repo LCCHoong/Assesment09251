@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-
+//create a struct that has the required attributes
 struct product
 {
    int prodCode;
@@ -12,6 +12,7 @@ struct product
 };
 
 
+
 //create array for each value of each attribute in the table
 int prodCode [6] { 1 , 2 ,3 , 4 ,5 ,6};
 std::string prodName [6] {"Smartwatch Pro" , "Wireless Earbuds" ,"Smart Home Kit" ,"Gaming Keyboard","4K Action Camera","Portable Projector"};
@@ -21,21 +22,11 @@ int studentDisc [6] {15 , 10 ,12 ,10 ,8 ,10};
 int seniorDisc [6] {5, 5,8 ,5,6,7, };
 
 
-//Display the product list along with pricing and discount rules.
-/*void printMinimal ()
-{
-    for(int iii = 0 ; iii < 6 ; iii++)
-    {
-        std::cout << "|Product Code: " << prodCode[iii] << "| |Product Name: " << prodName[iii] << "| |Product Price: " <<basePrice[iii] <<"|\n";
-    }    
-    
-}*/
 
-//allow multiple purchases in a single transaction
-/*bool isDone()
+bool isDone()
 {
     int x ;
-    while (x != 1 || x != 0)
+    while (x != 1 && x != 0)
     {
         std::cout << "Are ya done shopping ?\nEnter 1 if yes , enter 0 if not ";
         std::cin >>x ;
@@ -60,24 +51,10 @@ int seniorDisc [6] {5, 5,8 ,5,6,7, };
         return false;
     }
    
-}*/
-
-//For each customer, collect the following details:
-//so , more choice , new global vars or define something new
-//so even more things to wonder about , the must be unique either means that ever login have to be saved 
-//external memory and read back so total unique purchases can be made
-//https://cplusplus.com/doc/tutorial/files/
-
-/*  
-Name -string
-IC/Passport Number (must be unique) -int
-Age -int
-Product Code  1 >= int <= 6
-Purchase Type (Early Bird / Normal) int x, y
-Student status (Yes/No).    int x ,y 
-*/
+}
 
 struct product prodarray[6];
+
 
 void structshittery()
 {
@@ -91,6 +68,24 @@ void structshittery()
         prodarray[iii].seniorDisc = seniorDisc[iii];
 
     }
+}
+
+struct customerdetails
+{
+    std::string Name;
+    std::string ic_passport;
+    int prodCode;
+    int purchaseType;
+    bool studentType; 
+};
+
+customerdetails getInput()
+{
+    customerdetails temp;
+    std::cout << "enter name";
+    std::getline(std::cin >> std::ws , temp.Name);
+    return temp;
+
 }
 
 int main()
