@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 //genuinely feel like im overcomplicating stuff , for fun 
+// no syncing with external programs
 
 //create a struct that has the required attributes
 struct product
@@ -21,6 +22,9 @@ struct customerdetails
     int purchaseType;
     bool studentType; 
 };
+
+
+
 
 //create array for each value of each attribute in the table
 int prodCode [6] { 1 , 2 ,3 , 4 ,5 ,6};
@@ -92,9 +96,11 @@ void getFirstInput(customerdetails* temp)
     std::getline(std::cin >> std::ws , (*temp).ic_passport);
     std::cout << "Enter your age";
     std::cin >> (*temp).age;
-    if((*temp).studentType != true && (*temp).studentType != false)
+    //verify data type is true , crrntly loop is not working
+ 
+    do
     {
-        std::cout << "Enter your student status: yes / no";
+        std::cout << "Enter your student status: yes / no: ";
         std::cin >> yes_no;
         if(yes_no == "yes")
         {
@@ -104,12 +110,13 @@ void getFirstInput(customerdetails* temp)
         {
             (*temp).studentType = false;
         }
-    }
+        
+    }while (yes_no != "yes" && yes_no !="no");
+
 
 }
 
-//fucntion for repeatable inputs
-
+//writ
 int main()
 {
     customerdetails example ;
