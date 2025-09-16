@@ -1,21 +1,17 @@
 #include <iostream>
 #include <string>
 #include <limits>
+#include <vector>
+//general could add more : input confirmation <- worry later
 
-// create array for each value of each attribute in the table
-int prodCode[6]{1, 2, 3, 4, 5, 6};
-std::string prodName[6]{"Smartwatch Pro", "Wireless Earbuds", "Smart Home Kit", "Gaming Keyboard", "4K Action Camera", "Portable Projector"};
-int basePrice[6]{350, 200, 500, 250, 800, 600};
-int earlyDisc[6]{10, 12, 15, 8, 10, 12};
-int studentDisc[6]{15, 10, 12, 10, 8, 10};
-int seniorDisc[6]{
-    5,
-    5,
-    8,
-    5,
-    6,
-    7,
-};
+// create array for each value of each attribute in the table , each value should be tied to prodcode 0-5
+int const prodCode[6]{1, 2, 3, 4, 5, 6};
+std::string const prodName[6]{"Smartwatch Pro", "Wireless Earbuds", "Smart Home Kit", "Gaming Keyboard", "4K Action Camera", "Portable Projector"};
+int const basePrice[6]{350, 200, 500, 250, 800, 600};
+int const earlyDisc[6]{10, 12, 15, 8, 10, 12};
+int const studentDisc[6]{15, 10, 12, 10, 8, 10};
+int const seniorDisc[6]{5,5,8,5,6,7,};
+
 
 // Display the product list along with pricing + discount rules
 void displayProdcuts()
@@ -29,8 +25,8 @@ void displayProdcuts()
     // if time pretty tables for now just one liner
     // very pretty-able
 }
-
-bool isDone()
+//Allow multiple purchases in a single transaction
+bool isDone() 
 {
     // promt user isDone , if done return true else return false
     int value;
@@ -48,10 +44,45 @@ bool isDone()
     return true;
 }
 
+/*3) For each customer, collect the following details:
+• Name
+• IC/Passport Number (must be unique) validation = crosscheck if IC exist in arr then check if arr[exist] name = same , if same pass , if not re-input? 
+• Age
+• Product Code
+• Purchase Type (Early Bird / Normal)
+• Student status (Yes/No).*/
+
+//maybe order multiple order array , either that 
+
+//more global vars , dyamic size arrays, could just vector = purchase id 
+std::vector<int> purchaseID ; // keep track of all purchases and assign each an ID
+/*
+could do something like this:
+    for(int iii = 0 ; iii < 3 ; iii++)
+    {
+        
+        std::cin >> x;
+        nums.push_back(x);
+    }
+    for(int iii = 2 ; iii >= 0 ; iii--)
+    {
+        
+        std::cout << nums[iii] <<'\n';
+        nums.pop_back();
+    }
+    then when print just ssize vector then loop through arrs? 
+*/
+std::vector<std::string> purchaseName;
+std::vector<int> purchaseAge;
+std::vector<int> purchaseProdCode;
+std::vector<int> purchaseType;
+std::vector<bool> purchaseStdStat;
+//.pushback
+
+
+
 int main()
 {
-    bool bol = isDone();
-
-    std::cout << bol;
+   
 
 }
