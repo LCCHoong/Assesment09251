@@ -49,7 +49,7 @@ bool isDone()
 • IC/Passport Number (must be unique) validation = crosscheck if IC exist in arr then check if arr[exist] name = same , if same pass , if not re-input? 
 • Age
 • Product Code
-• Purchase Type (Early Bird / Normal)
+• Purchase Type (Early Bird / Normal) -  0 = normla 1 = early bird
 • Student status (Yes/No).*/
 
 //maybe order multiple order array , either that 
@@ -71,18 +71,131 @@ could do something like this:
         nums.pop_back();
     }
     then when print just ssize vector then loop through arrs? 
+    for (data type varname : vector to iterate)
+    {
+        printf("%d", varname);
+    }
 */
 std::vector<std::string> purchaseName;
+std::vector<std::string> purchaseICPP;
 std::vector<int> purchaseAge;
 std::vector<int> purchaseProdCode;
-std::vector<int> purchaseType;
+std::vector<bool> purchaseEBType;
 std::vector<bool> purchaseStdStat;
 //.pushback
 
+//keep track of producst?
+int purchaseLoop {0};
+std::string tempString;
+int tempInt;
+
+void getPurchaseInfo()
+{
+   purchaseID.push_back(purchaseLoop); // purchaseID ++
+    purchaseLoop ++;
+    
+    std::cout <<"Enter your Name: \n" ;
+    std::cin >> tempString; //optimisable , maybe ltr
+    purchaseName.push_back(tempString);
+
+    std::cout <<"Enter your IC/Passport Number: \n" ;
+    std::cin >> tempString; //optimisable , maybe ltr
+    purchaseICPP.push_back(tempString);
+//intintint bool
+    std::cout <<"Enter your Age: \n";
+    std::cin >>tempInt;
+    purchaseAge.push_back(tempInt);
+
+    std::cout <<"Enter your Product Code: \n";
+    std::cin >>tempInt;
+    purchaseProdCode.push_back(tempInt);
+
+    std::cout <<"Enter your Purchase Type ,Enter 1 for ealy bird ,Enter 0 for normal: \n"; //0 = normal, 1 = early bird ; input validation
+    std::cin >>tempInt;
+    if(tempInt == 1)
+    {
+        purchaseEBType.push_back(true);
+    }
+    else if (tempInt == 0)
+    {
+        purchaseEBType.push_back(false);
+    }
+    else
+    {
+        std::cout <<"someting wong";
+    }
+
+
+    std::cout <<"Enter your student status ,Enter 1 if you're a student ,Enter 0 if you're not: \n" ;//0 = not std, 1 = std ; input validation
+    std::cin >>tempInt;
+    if(tempInt == 1)
+    {
+        purchaseStdStat.push_back(true);
+    }
+    else if (tempInt == 0)
+    {
+         purchaseStdStat.push_back(false);
+    }
+    else
+    {
+        std::cout <<"someting wong";
+    }
+
+
+    
+
+    
+}
+//how would you print multiple times , for each ID as outer then nest all the other inside?
+
+/*
+std::vector<int> purchaseID 
+std::vector<std::string> purchaseName;
+std::vector<std::string> purchaseICPP;
+std::vector<int> purchaseAge;
+std::vector<int> purchaseProdCode;
+std::vector<bool> purchaseEBType;
+std::vector<bool> purchaseStdStat;*/
 
 
 int main()
 {
-   
+    
+    getPurchaseInfo();
+    getPurchaseInfo();
+    getPurchaseInfo();
 
+    for(int loop : purchaseID)
+    {
+        std::cout<<"Your name is: "<<purchaseName[loop] <<"\nYour ICPP is: "<<purchaseICPP[loop] <<"\nYour Age is: "
+        << purchaseAge[loop] << "\nYour Product Code: "<<purchaseProdCode[loop];
+        std::cout <<"debug";
+        if(purchaseEBType[loop] == true)
+        {
+            std::cout <<"\nYour Early Bird status is Valid";
+        }
+        else if(purchaseEBType[loop] == false)
+        {
+            std::cout <<"\nYour Early Bird status is Invalid";
+        }
+        else
+        {
+            std::cout <<"somehow an error in EarlyDiscPrint";
+        }
+        if(purchaseStdStat[loop] == true)
+        {
+            std::cout <<"\nYour student status is Valid";
+        }
+        else if(purchaseStdStat[loop] == false)
+        {
+            std::cout <<"\nYour student status is Invalid";
+        }
+        else
+        {
+            std::cout <<"somehow an error in studenstatPrint ";
+        }
+        std::cout <<'\n';
+        
+        
+    }
 }
