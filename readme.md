@@ -29,7 +29,7 @@ Program Requirements
 2) Allow multiple purchases in a single transaction.
 3) For each customer, collect the following details:
 • Name
-• IC/Passport Number (must be unique)
+• IC/Passport Number (must be unique) - just check 1 ic can only appear once
 • Age
 • Product Code
 • Purchase Type (Early Bird / Normal)
