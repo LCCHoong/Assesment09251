@@ -2,6 +2,7 @@
 #include <string>
 #include <limits>
 #include <vector>
+#include <algorithm>
 //general could add more : input confirmation <- worry later
 
 // create array for each value of each attribute in the table , each value should be tied to prodcode 0-5
@@ -88,10 +89,13 @@ std::vector<bool> purchaseStdStat;
 int purchaseLoop {0};
 std::string tempString;
 int tempInt;
+bool stringValidate {false};
+
+
 
 void getPurchaseInfo()
 {
-   purchaseID.push_back(purchaseLoop); // purchaseID ++
+    purchaseID.push_back(purchaseLoop); // purchaseID ++
     purchaseLoop ++;
     
     std::cout <<"Enter your Name: \n" ;
@@ -99,10 +103,33 @@ void getPurchaseInfo()
     purchaseName.push_back(tempString);
 
     std::cout <<"Enter your IC/Passport Number: \n" ;
-    std::cin >> tempString; //optimisable , maybe ltr
-    purchaseICPP.push_back(tempString);
-//intintint bool
-    std::cout <<"Enter your Age: \n";
+    while(stringValidate == false)
+    {
+        std::cin >> tempString ;
+        if(std::find(purchaseICPP.begin(),purchaseICPP.end(),tempString) != purchaseICPP.end())
+        {
+            std::cout <<"Please enter another IC / Passport Number. \n";
+
+        }
+        else
+        {
+            purchaseICPP.push_back(tempString);
+            stringValidate = true;
+
+        }
+    }
+    stringValidate = false;
+
+    //check input
+    
+
+
+/* Validate inputs:
+• Age > 0
+• Product code exists
+• No duplicate IC/Passport numbers.*/
+    
+    /*std::cout <<"Enter your Age: \n";
     std::cin >>tempInt;
     purchaseAge.push_back(tempInt);
 
@@ -139,7 +166,7 @@ void getPurchaseInfo()
     else
     {
         std::cout <<"someting wong";
-    }
+    }*/
 
 
     
@@ -163,14 +190,14 @@ int main()
     
     getPurchaseInfo();
     getPurchaseInfo();
-    getPurchaseInfo();
-
+    
+   
     for(int loop : purchaseID)
     {
-        std::cout<<"Your name is: "<<purchaseName[loop] <<"\nYour ICPP is: "<<purchaseICPP[loop] <<"\nYour Age is: "
-        << purchaseAge[loop] << "\nYour Product Code: "<<purchaseProdCode[loop];
-        std::cout <<"debug";
-        if(purchaseEBType[loop] == true)
+        std::cout<<"Your name is: "<<purchaseName[loop] <<"\nYour ICPP is: "<<purchaseICPP[loop] /*<<"\nYour Age is: "
+        << purchaseAge[loop] << "\nYour Product Code: "<<purchaseProdCode[loop]*/;
+       
+        /*if(purchaseEBType[loop] == true)
         {
             std::cout <<"\nYour Early Bird status is Valid";
         }
@@ -193,7 +220,7 @@ int main()
         else
         {
             std::cout <<"somehow an error in studenstatPrint ";
-        }
+        }*/
         std::cout <<'\n';
         
         
