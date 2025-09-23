@@ -101,6 +101,7 @@ void getPurchaseInfo()
     std::cout <<"Enter your Name: \n" ;
     std::cin >> tempString; //optimisable , maybe ltr
     purchaseName.push_back(tempString);
+    tempString = "";
 
     std::cout <<"Enter your IC/Passport Number: \n" ;
     while(stringValidate == false)
@@ -119,24 +120,37 @@ void getPurchaseInfo()
         }
     }
     stringValidate = false;
+    tempString = "";
 
     //check input
     
 
-
-/* Validate inputs:
-• Age > 0
-• Product code exists
-• No duplicate IC/Passport numbers.*/
     
-    /*std::cout <<"Enter your Age: \n";
-    std::cin >>tempInt;
+    std::cout <<"Enter your Age: \n";
+    while(!(std::cin >> tempInt) || tempInt <= 0)
+    {
+        std::cin.clear(); // clear the error flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Reenter you age: \n";
+        
+    }
     purchaseAge.push_back(tempInt);
-
+    tempInt = {};
+    
+    //check for 1 to 6 only
+    
     std::cout <<"Enter your Product Code: \n";
-    std::cin >>tempInt;
+    while(!(std::cin >> tempInt)||(tempInt < 1 )|| (tempInt >6))
+    {
+        std::cin.clear(); // clear the error flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Reenter you product code , it should be 1 or 6 \n";
+        
+    }
     purchaseProdCode.push_back(tempInt);
-
+    tempInt = {};
+    
+    
     std::cout <<"Enter your Purchase Type ,Enter 1 for ealy bird ,Enter 0 for normal: \n"; //0 = normal, 1 = early bird ; input validation
     std::cin >>tempInt;
     if(tempInt == 1)
@@ -166,8 +180,8 @@ void getPurchaseInfo()
     else
     {
         std::cout <<"someting wong";
-    }*/
-
+    }
+    
 
     
 
@@ -192,37 +206,8 @@ int main()
     getPurchaseInfo();
     
    
-    for(int loop : purchaseID)
-    {
-        std::cout<<"Your name is: "<<purchaseName[loop] <<"\nYour ICPP is: "<<purchaseICPP[loop] /*<<"\nYour Age is: "
-        << purchaseAge[loop] << "\nYour Product Code: "<<purchaseProdCode[loop]*/;
-       
-        /*if(purchaseEBType[loop] == true)
-        {
-            std::cout <<"\nYour Early Bird status is Valid";
-        }
-        else if(purchaseEBType[loop] == false)
-        {
-            std::cout <<"\nYour Early Bird status is Invalid";
-        }
-        else
-        {
-            std::cout <<"somehow an error in EarlyDiscPrint";
-        }
-        if(purchaseStdStat[loop] == true)
-        {
-            std::cout <<"\nYour student status is Valid";
-        }
-        else if(purchaseStdStat[loop] == false)
-        {
-            std::cout <<"\nYour student status is Invalid";
-        }
-        else
-        {
-            std::cout <<"somehow an error in studenstatPrint ";
-        }*/
-        std::cout <<'\n';
-        
-        
-    }
+    std::cout <<purchaseProdCode[0] <<'\n';
+    std::cout <<purchaseProdCode[1] <<'\n';
+   
+    
 }
