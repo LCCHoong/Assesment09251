@@ -3,6 +3,8 @@
 #include <limits>
 #include <vector>
 #include <algorithm>
+#include<chrono>
+#include<iomanip>
 
 int const prodCode[6]{1, 2, 3, 4, 5, 6};
 std::string const prodName[6]{"Smartwatch Pro", "Wireless Earbuds", "Smart Home Kit", "Gaming Keyboard", "4K Action Camera", "Portable Projector"};
@@ -24,20 +26,17 @@ int tempInt;
 
 
 
+int main() {
+   
+    auto ymd = std::chrono::year(2025)/std::chrono::month(4)/std::chrono::day(15) ;
+    std::chrono::system_clock::time_point earlybird = std::chrono::sys_days{ymd};
+    std::chrono::system_clock::time_point earlybirdcheck = std::chrono::system_clock::now();
 
-int main()
-{
-    purchaseICPP.push_back("stringaaaaaaaa");
-    std::string str {"string"};
-    std::cout << purchaseICPP[0];
-    if(std::find(purchaseICPP.begin(),purchaseICPP.end(),str) != purchaseICPP.end())
-    {
-        std::cout << "is in vector";
-    }
-    if(std::find(purchaseICPP.begin(),purchaseICPP.end(),str) == purchaseICPP.end())
-    {
-        std::cout << "is not in vector";
-    }
-    
+    std::cout <<earlybird <<'\n';
+    std::cout << earlybirdcheck <<'\n';
+    std::cout << std::chrono::duration_cast<std::chrono::days>(earlybird - earlybirdcheck);
+
 }
+    
+
 

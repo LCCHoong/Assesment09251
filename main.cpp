@@ -165,6 +165,9 @@ void getPurchaseInfo()
     {
         std::cout <<"someting wong";
     }
+    //check date early bird status
+
+
 
 
     std::cout <<"Enter your student status ,Enter 1 if you're a student ,Enter 0 if you're not: \n" ;//0 = not std, 1 = std ; input validation
@@ -202,12 +205,6 @@ std::vector<bool> purchaseStdStat;*/
 int main()
 {
     
-    getPurchaseInfo();
-    getPurchaseInfo();
-    
-   
-    std::cout <<purchaseProdCode[0] <<'\n';
-    std::cout <<purchaseProdCode[1] <<'\n';
-   
+  
     
 }
