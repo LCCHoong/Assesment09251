@@ -36,7 +36,7 @@ bool isDone()
     {
         std::cin.clear(); // clear the error flag
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
-        std::cout << "Invalid input. Please enter a positive integer: \n";
+        std::cout << "Invalid input. Please enter  1 or 2: \n";
     }
     if(value == 1)
     {
@@ -53,37 +53,13 @@ bool isDone()
 • Purchase Type (Early Bird / Normal) -  0 = normla 1 = early bird
 • Student status (Yes/No).*/
 
-//maybe order multiple order array , either that 
-
-//more global vars , dyamic size arrays, could just vector = purchase id 
-std::vector<int> purchaseID ; // keep track of all purchases and assign each an ID
-/*
-could do something like this:
-    for(int iii = 0 ; iii < 3 ; iii++)
-    {
-        
-        std::cin >> x;
-        nums.push_back(x);
-    }
-    for(int iii = 2 ; iii >= 0 ; iii--)
-    {
-        
-        std::cout << nums[iii] <<'\n';
-        nums.pop_back();
-    }
-    then when print just ssize vector then loop through arrs? 
-    for (data type varname : vector to iterate)
-    {
-        printf("%d", varname);
-    }
-*/
 std::vector<std::string> purchaseName;
 std::vector<std::string> purchaseICPP;
 std::vector<int> purchaseAge;
 std::vector<int> purchaseProdCode;
 std::vector<bool> purchaseEBType;
 std::vector<bool> purchaseStdStat;
-//.pushback
+
 
 //keep track of producst?
 int purchaseLoop {0};
@@ -95,8 +71,6 @@ bool stringValidate {false};
 
 void getPurchaseInfo()
 {
-    purchaseID.push_back(purchaseLoop); // purchaseID ++
-    purchaseLoop ++;
     
     std::cout <<"Enter your Name: \n" ;
     std::cin >> tempString; //optimisable , maybe ltr
@@ -106,6 +80,7 @@ void getPurchaseInfo()
     std::cout <<"Enter your IC/Passport Number: \n" ;
     while(stringValidate == false)
     {
+       
         std::cin >> tempString ;
         if(std::find(purchaseICPP.begin(),purchaseICPP.end(),tempString) != purchaseICPP.end())
         {
@@ -150,7 +125,7 @@ void getPurchaseInfo()
     purchaseProdCode.push_back(tempInt);
     tempInt = {};
     
-    
+    /*
     std::cout <<"Enter your Purchase Type ,Enter 1 for ealy bird ,Enter 0 for normal: \n"; //0 = normal, 1 = early bird ; input validation
     std::cin >>tempInt;
     if(tempInt == 1)
@@ -167,9 +142,6 @@ void getPurchaseInfo()
     }
     //check date early bird status
 
-
-
-
     std::cout <<"Enter your student status ,Enter 1 if you're a student ,Enter 0 if you're not: \n" ;//0 = not std, 1 = std ; input validation
     std::cin >>tempInt;
     if(tempInt == 1)
@@ -183,28 +155,39 @@ void getPurchaseInfo()
     else
     {
         std::cout <<"someting wong";
-    }
-    
-
-    
-
+    }*/
     
 }
 //how would you print multiple times , for each ID as outer then nest all the other inside?
 
 /*
-std::vector<int> purchaseID 
 std::vector<std::string> purchaseName;
 std::vector<std::string> purchaseICPP;
 std::vector<int> purchaseAge;
 std::vector<int> purchaseProdCode;
+*
 std::vector<bool> purchaseEBType;
 std::vector<bool> purchaseStdStat;*/
 
+//float finalprice()
+
+/*std::vector<std::string> purchaseName;
+std::vector<std::string> purchaseICPP;
+std::vector<int> purchaseAge;
+std::vector<int> purchaseProdCode;
+*/
 
 int main()
 {
+    //displayProdcuts();
+
+   getPurchaseInfo();// all input is in here
+
+
+
+   
     
+
   
     
 }
