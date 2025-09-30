@@ -3,15 +3,17 @@
 #include <limits>
 #include <vector>
 #include <algorithm>
+
 //general could add more : input confirmation <- worry later
 
 // create array for each value of each attribute in the table , each value should be tied to prodcode 0-5
 int const prodCode[6]{1, 2, 3, 4, 5, 6};
 std::string const prodName[6]{"Smartwatch Pro", "Wireless Earbuds", "Smart Home Kit", "Gaming Keyboard", "4K Action Camera", "Portable Projector"};
-int const basePrice[6]{350, 200, 500, 250, 800, 600};
-int const earlyDisc[6]{10, 12, 15, 8, 10, 12};
-int const studentDisc[6]{15, 10, 12, 10, 8, 10};
-int const seniorDisc[6]{5,5,8,5,6,7,};
+float const basePrice[6]{350, 200, 500, 250, 800, 600};
+float const couponDisc[6]{10, 12, 15, 8, 10, 12};
+float const studentDisc[6]{15, 10, 12, 10, 8, 10};
+float const seniorDisc[6]{5,5,8,5,6,7,};
+int loop;
 
 
 // Display the product list along with pricing + discount rules
@@ -19,7 +21,7 @@ void displayProdcuts()
 {
     for (int iii = 0; iii < 6; iii++)
     {
-        std::cout << "|Product Code:" << prodCode[iii] << "| |Product Name:" << prodName[iii] << "| |Product Price:" << basePrice[iii] << "|" << "| |Early Bird Discount :" << earlyDisc[iii]
+        std::cout << "|Product Code:" << prodCode[iii] << "| |Product Name:" << prodName[iii] << "| |Product Price:" << basePrice[iii] << "|" << "| |Early Bird Discount :" << couponDisc[iii]
                   << "%| |Student Discount :" << studentDisc[iii] << "%| |Senior Discount :" << seniorDisc[iii] << "% |\n";
     }
 
@@ -40,9 +42,30 @@ bool isDone()
     }
     if(value == 1)
     {
+        loop++;
         return false;
+
     }
     return true;
+}
+
+
+
+
+bool couponValid()
+{
+    std::string coupon;
+    std::cout << "Enter coupon code (if any): ";
+    std::cin >> coupon;
+
+    if (coupon == "TECH2025") 
+    {
+       return true;
+    }  
+     else {
+   return false;
+    }
+    
 }
 
 /*3) For each customer, collect the following details:
@@ -57,8 +80,10 @@ std::vector<std::string> purchaseName;
 std::vector<std::string> purchaseICPP;
 std::vector<int> purchaseAge;
 std::vector<int> purchaseProdCode;
-std::vector<bool> purchaseEBType;
+std::vector<bool> purchaseCouponType;
 std::vector<bool> purchaseStdStat;
+std::vector<float>finalprice;
+
 
 
 //keep track of producst?
@@ -66,6 +91,8 @@ int purchaseLoop {0};
 std::string tempString;
 int tempInt;
 bool stringValidate {false};
+
+
 
 
 
@@ -99,7 +126,7 @@ void getPurchaseInfo()
 
     //check input
     
-
+    
     
     std::cout <<"Enter your Age: \n";
     while(!(std::cin >> tempInt) || tempInt <= 0)
@@ -125,69 +152,89 @@ void getPurchaseInfo()
     purchaseProdCode.push_back(tempInt);
     tempInt = {};
     
-    /*
-    std::cout <<"Enter your Purchase Type ,Enter 1 for ealy bird ,Enter 0 for normal: \n"; //0 = normal, 1 = early bird ; input validation
-    std::cin >>tempInt;
-    if(tempInt == 1)
+    bool cvalid = couponValid();
+    if(cvalid == true)
     {
-        purchaseEBType.push_back(true);
+        std::cout << "Your Coupon is Valid\n" ;
+        purchaseCouponType.push_back(true);
     }
-    else if (tempInt == 0)
+    else if (cvalid == false)
     {
-        purchaseEBType.push_back(false);
+        std::cout <<"Your Coupon is Invalid\n";
+        purchaseCouponType.push_back(false);
     }
     else
     {
         std::cout <<"someting wong";
     }
-    //check date early bird status
+    
 
-    std::cout <<"Enter your student status ,Enter 1 if you're a student ,Enter 0 if you're not: \n" ;//0 = not std, 1 = std ; input validation
-    std::cin >>tempInt;
+    //input validation needed
+    std::cout << "Enter 1 if your are a student , Enter 0 if you are not: " ;
+    std::cin >> tempInt;
     if(tempInt == 1)
     {
         purchaseStdStat.push_back(true);
     }
     else if (tempInt == 0)
     {
-         purchaseStdStat.push_back(false);
+        purchaseStdStat.push_back(false);
     }
     else
     {
-        std::cout <<"someting wong";
-    }*/
-    
+        std::cout << "Something wong";
+    }
+
 }
-//how would you print multiple times , for each ID as outer then nest all the other inside?
 
-/*
-std::vector<std::string> purchaseName;
-std::vector<std::string> purchaseICPP;
-std::vector<int> purchaseAge;
-std::vector<int> purchaseProdCode;
-*
-std::vector<bool> purchaseEBType;
-std::vector<bool> purchaseStdStat;*/
+//Calc final price of item
+//  Early Bird Discount earlydisc - purchaseEb = true
+//    StudentDiscount   stddisc - purchaseStd = true
+//    SeniorDiscount    seniordisc - purchaseAge >= 60
 
-//float finalprice()
+float calcFinPrice(int loop)
+{
+        float price =basePrice[purchaseProdCode[loop]-1] ;
+        if(purchaseCouponType[loop]== 1)
+        {
+            price = price * ((100.0 - couponDisc[purchaseProdCode[loop]-1])/100.0);
+        }
+        if(purchaseStdStat[loop] == 1)
+        {
+            price = price * ((100.0 - studentDisc[purchaseProdCode[loop]-1])/100.0);
+        }
+        if(purchaseAge[loop] >= 60)
+        {
+            price * ((100.0 - seniorDisc[purchaseProdCode[loop]-1])/100.0);
+        }
+
+        return price;
+}
+
+int main()
+{
 
 /*std::vector<std::string> purchaseName;
 std::vector<std::string> purchaseICPP;
 std::vector<int> purchaseAge;
 std::vector<int> purchaseProdCode;
-*/
+std::vector<bool> purchaseCouponType;
+std::vector<bool> purchaseStdStat;
+std::vector<float>finalprice;*/
 
-int main()
-{
-    //displayProdcuts();
+    getPurchaseInfo();
+    int loop = 0;
+    std::cout << purchaseName[loop] <<'\n' << 
+    purchaseICPP[loop] <<'\n' << 
+    purchaseAge[loop] << '\n' <<
+    purchaseProdCode [loop] <<'\n'<< 
+    prodName[purchaseProdCode[loop]-1] <<'\n' << 
+    purchaseCouponType[loop] <<'\n' << 
+    purchaseStdStat[loop] <<'\n';
 
-   getPurchaseInfo();// all input is in here
+    std::cout << "Finna prices"<<'\n';
 
+    std::cout << calcFinPrice(loop);
 
-
-   
-    
-
-  
     
 }
