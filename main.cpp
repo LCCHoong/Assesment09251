@@ -218,13 +218,13 @@ void printAll(int purchaseLoop)
         std::cout <<"IC/PP: " <<purchaseICPP[iii]<<'\n';
         std::cout <<"Age: " <<purchaseAge[iii]<<'\n';
         std::cout <<"Product Name: " <<prodName[purchaseProdCode[iii]-1]<<'\n';
-        std::cout <<"Your total with discounts: \n" <<calcFinPrice(purchaseLoop -1)<<'\n';
+        std::cout <<"Your total with discounts: \n" <<calcFinPrice(iii)<<'\n';
     }
 }
 
 void printgrandTotal()
 {
-    int x;
+    int x = 0;
     for(int iii = 0 ; iii < purchaseLoop ; iii ++)
     {
         x = x + purchaseFinalprice[iii];
