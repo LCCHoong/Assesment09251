@@ -13,7 +13,6 @@ float const basePrice[6]{350, 200, 500, 250, 800, 600};
 float const couponDisc[6]{10, 12, 15, 8, 10, 12};
 float const studentDisc[6]{15, 10, 12, 10, 8, 10};
 float const seniorDisc[6]{5,5,8,5,6,7,};
-int loop;
 
 
 // Display the product list along with pricing + discount rules
@@ -42,7 +41,7 @@ bool isDone()
     }
     if(value == 1)
     {
-        loop++;
+    
         return false;
 
     }
@@ -82,12 +81,11 @@ std::vector<int> purchaseAge;
 std::vector<int> purchaseProdCode;
 std::vector<bool> purchaseCouponType;
 std::vector<bool> purchaseStdStat;
-std::vector<float>finalprice;
-
+std::vector<float>purchaseFinalprice;
+int purchaseLoop {0};
 
 
 //keep track of producst?
-int purchaseLoop {0};
 std::string tempString;
 int tempInt;
 bool stringValidate {false};
@@ -105,23 +103,8 @@ void getPurchaseInfo()
     tempString = "";
 
     std::cout <<"Enter your IC/Passport Number: \n" ;
-    while(stringValidate == false)
-    {
-       
-        std::cin >> tempString ;
-        if(std::find(purchaseICPP.begin(),purchaseICPP.end(),tempString) != purchaseICPP.end())
-        {
-            std::cout <<"Please enter another IC / Passport Number. \n";
-
-        }
-        else
-        {
-            purchaseICPP.push_back(tempString);
-            stringValidate = true;
-
-        }
-    }
-    stringValidate = false;
+    std::cin >> tempString ;
+    purchaseICPP.push_back(tempString);
     tempString = "";
 
     //check input
@@ -184,6 +167,7 @@ void getPurchaseInfo()
     {
         std::cout << "Something wong";
     }
+    purchaseLoop ++;
 
 }
 
@@ -192,28 +176,32 @@ void getPurchaseInfo()
 //    StudentDiscount   stddisc - purchaseStd = true
 //    SeniorDiscount    seniordisc - purchaseAge >= 60
 
-float calcFinPrice(int loop)
+float calcFinPrice(int x)
 {
-        float price =basePrice[purchaseProdCode[loop]-1] ;
-        if(purchaseCouponType[loop]== 1)
+        float price =basePrice[purchaseProdCode[x]-1] ;
+        if(purchaseCouponType[x]== 1)
         {
-            price = price * ((100.0 - couponDisc[purchaseProdCode[loop]-1])/100.0);
+            std::cout << "Promotion Code Applied. \n";
+            price = price * ((100.0 - couponDisc[purchaseProdCode[x]-1])/100.0);
         }
-        if(purchaseStdStat[loop] == 1)
+        if(purchaseStdStat[x] == 1)
         {
-            price = price * ((100.0 - studentDisc[purchaseProdCode[loop]-1])/100.0);
+           std::cout << "Student Discount Applied. \n";
+            price = price * ((100.0 - studentDisc[purchaseProdCode[x]-1])/100.0);
         }
-        if(purchaseAge[loop] >= 60)
+        if(purchaseAge[x] >= 60)
         {
-            price * ((100.0 - seniorDisc[purchaseProdCode[loop]-1])/100.0);
+           std::cout << "Senior Discount Applied. \n";
+            price = price * ((100.0 - seniorDisc[purchaseProdCode[x]-1])/100.0);
         }
-
+        purchaseFinalprice.push_back(price);
         return price;
+       
 }
 
-int main()
-{
 
+
+//printall
 /*std::vector<std::string> purchaseName;
 std::vector<std::string> purchaseICPP;
 std::vector<int> purchaseAge;
@@ -221,20 +209,65 @@ std::vector<int> purchaseProdCode;
 std::vector<bool> purchaseCouponType;
 std::vector<bool> purchaseStdStat;
 std::vector<float>finalprice;*/
+void printAll(int purchaseLoop)
+{
+    for(int iii = 0 ; iii < purchaseLoop ; iii ++)
+    {
+        std::cout <<"Customer Details: \n";
+        std::cout << "Name: "<<purchaseName[iii] <<"\n";
+        std::cout <<"IC/PP: " <<purchaseICPP[iii]<<'\n';
+        std::cout <<"Age: " <<purchaseAge[iii]<<'\n';
+        std::cout <<"Product Name: " <<prodName[purchaseProdCode[iii]-1]<<'\n';
+        std::cout <<"Your total with discounts: \n" <<calcFinPrice(purchaseLoop -1)<<'\n';
+    }
+}
 
-    getPurchaseInfo();
-    int loop = 0;
-    std::cout << purchaseName[loop] <<'\n' << 
-    purchaseICPP[loop] <<'\n' << 
-    purchaseAge[loop] << '\n' <<
-    purchaseProdCode [loop] <<'\n'<< 
-    prodName[purchaseProdCode[loop]-1] <<'\n' << 
-    purchaseCouponType[loop] <<'\n' << 
-    purchaseStdStat[loop] <<'\n';
+void printgrandTotal()
+{
+    int x;
+    for(int iii = 0 ; iii < purchaseLoop ; iii ++)
+    {
+        x = x + purchaseFinalprice[iii];
+    }
+    std::cout << x;
 
-    std::cout << "Finna prices"<<'\n';
+}
+int main()
+{
 
-    std::cout << calcFinPrice(loop);
 
+    bool donecheck;
+    displayProdcuts();
+    while (donecheck == false)
+    {
+        
+        getPurchaseInfo();
+    
+        donecheck = isDone();
+    }
+
+    printAll(purchaseLoop);
+    printgrandTotal();
     
 }
+
+/*
+what would main look like
+
+int main()
+{
+    bool donecheck;
+    while (donecheck == false)
+    {
+        
+    
+    
+        donecheck = isdone();
+    }
+
+    print all ;
+
+}
+
+
+*/
