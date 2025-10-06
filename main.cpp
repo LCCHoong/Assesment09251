@@ -226,7 +226,7 @@ void printAll(int purchaseID)
 void printgrandTotal()
 {
     int x = 0;
-    for(int iii = 0 ; iii < purchaseID + 1 ; iii ++)
+    for(int iii = 0 ; iii <= purchaseID  ; iii ++)
     {
         x = x + purchaseFinalprice[iii];
     }
@@ -248,7 +248,7 @@ int main()
     
         donecheck = isDone();
     }
-    for(int iii = 0 ; iii < purchaseID + 1 ; iii ++)
+    for(int iii = 0 ; iii <= purchaseID  ; iii ++)
     {
         printAll(iii);
     };
