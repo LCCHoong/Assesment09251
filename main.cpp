@@ -154,7 +154,12 @@ void getPurchaseInfo()
 
     //input validation needed
     std::cout << "Enter 1 if your are a student , Enter 0 if you are not: " ;
-    std::cin >> tempInt;
+    while(!(std::cin >> tempInt)||(tempInt < 0 )||(tempInt > 1))
+    {
+        std::cin.clear(); // clear the error flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Reenter your answer , it should be 1 or 0 \n";
+    }
     if(tempInt == 1)
     {
         purchaseStdStat.push_back(true);
@@ -221,7 +226,7 @@ void printAll(int purchaseID)
 void printgrandTotal()
 {
     int x = 0;
-    for(int iii = 0 ; iii < purchaseID ; iii ++)
+    for(int iii = 0 ; iii < purchaseID + 1 ; iii ++)
     {
         x = x + purchaseFinalprice[iii];
     }
@@ -243,10 +248,12 @@ int main()
     
         donecheck = isDone();
     }
-    /*for(int iii = 0 ; iii < purchaseID ; iii ++)
+    for(int iii = 0 ; iii < purchaseID + 1 ; iii ++)
     {
-        printAll(iii -1 );
-    }*/
+        printAll(iii);
+    };
     printgrandTotal();
+    
+    
     
 }
