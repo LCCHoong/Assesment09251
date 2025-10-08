@@ -12,12 +12,12 @@ std::string const prodName[6]{"Smartwatch Pro", "Wireless Earbuds", "Smart Home 
 float const basePrice[6]{350, 200, 500, 250, 800, 600};//base product price
 float const couponDisc[6]{10, 12, 15, 8, 10, 12};//discount spplied with valid coupon code
 float const studentDisc[6]{15, 10, 12, 10, 8, 10};//discount applied if customer is student
-float const seniorDisc[6]{5,5,8,5,6,7,};//discount applied if customer >= 60
+float const seniorDisc[6]{5,5,8,5,6,7};//discount applied if customer >= 60
 
 
 
 // Display the product list along with pricing + discount rules
-void displayProdcuts()
+void displayProducts()
 {
     for (int iii = 0; iii < 6; iii++)
     {
@@ -86,10 +86,9 @@ std::vector<float>purchaseFinalprice;//store item price with discounts applied
 //temporaty variables to intialise the vectors
 std::string tempString {};
 int tempInt = 0;
-bool stringValidate {false};
 
 
-
+float calcFinPrice(int x);
 
 //get customer information
 //[can maybe give second validation attemp etc etc]
@@ -120,7 +119,7 @@ void getPurchaseInfo()
         
     }
     purchaseAge.push_back(tempInt);
-    tempInt = {};
+    tempInt = 0;
     
     //check for 1 to 6 only
     
@@ -129,11 +128,11 @@ void getPurchaseInfo()
     {
         std::cin.clear(); // clear the error flag
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Reenter you product code , it should be 1 or 6 \n";
+        std::cout << "Reenter your product code, it should be between 1 and 6\n";
         
     }
     purchaseProdCode.push_back(tempInt);
-    tempInt = {};
+    tempInt = 0;
     
     bool cvalid = couponValid();
     if(cvalid == true)
@@ -146,14 +145,11 @@ void getPurchaseInfo()
         std::cout <<"Your Coupon is Invalid\n";
         purchaseCouponType.push_back(false);
     }
-    else
-    {
-        std::cout <<"someting wong";
-    }
+
     
 
     //input validation needed
-    std::cout << "Enter 1 if your are a student , Enter 0 if you are not: " ;
+    std::cout << "Enter 1 if you are a student, Enter 0 if you are not: ";
     while(!(std::cin >> tempInt)||(tempInt < 0 )||(tempInt > 1))
     {
         std::cin.clear(); // clear the error flag
@@ -168,15 +164,12 @@ void getPurchaseInfo()
     {
         purchaseStdStat.push_back(false);
     }
-    else
-    {
-        std::cout << "Something wong";
-    }
     purchaseID ++;
+    purchaseFinalprice.push_back(calcFinPrice(purchaseID -1));
 
 }
 
-//Calc final price of item afte discounts
+//Calc final price of item after discounts
 //formula used is Base Price * (100 - discount)%
 float calcFinPrice(int x)
 {
@@ -199,7 +192,6 @@ float calcFinPrice(int x)
             price = price * ((100.0 - seniorDisc[purchaseProdCode[x]-1])/100.0);
         }
         //add the final price to the final price vector
-        purchaseFinalprice.push_back(price);
         //return price after discounts
         return price;
        
@@ -208,39 +200,39 @@ float calcFinPrice(int x)
 
 
 //printall customer details
-void printAll(int purchaseID)
+void printAll(int iii)
 {
-    for(int iii = 0 ; iii < purchaseID ; iii ++)
-    {
+    
         std::cout <<"Customer Details: \n"; 
         std::cout << "Name: "<<purchaseName[iii] <<"\n"; // name
         std::cout <<"IC/PP: " <<purchaseICPP[iii]<<'\n'; // IC or PassPort No.
         std::cout <<"Age: " <<purchaseAge[iii]<<'\n'; // Age
         std::cout <<"Product Name: " <<prodName[purchaseProdCode[iii]-1]<<'\n'; // Prodcut Name
         std::cout <<"Price before discounts: "<<basePrice[purchaseProdCode[iii]-1]<<'\n';
-        std::cout <<"Your total with discounts: \n" <<calcFinPrice(iii)<<'\n'; // Discounts applied and Final price 
-    }
+        std::cout <<"Your total with discounts: RM" <<purchaseFinalprice[iii]<<'\n'; // Discounts applied and Final price 
+        std::cout << "-------------------------------------\n";
+    
 }
 
 //print grand total 
 void printgrandTotal()
 {
-    int x = 0;
-    for(int iii = 0 ; iii <= purchaseID  ; iii ++)
+    float x = 0;
+    for(int iii = 0 ; iii < purchaseID  ; iii ++)
     {
         x = x + purchaseFinalprice[iii];
     }
-    std::cout << x;
+    std::cout << "Grand Total: RM" << x << "\n";
 
 }
 int main()
 {
 
 
-    bool donecheck;
+    bool donecheck = false;
     // could add welcome to something
     //or a would you like to buy stuff etc etc
-    displayProdcuts();
+    displayProducts();
     while (donecheck == false)
     {
         
@@ -248,10 +240,10 @@ int main()
     
         donecheck = isDone();
     }
-    for(int iii = 0 ; iii <= purchaseID  ; iii ++)
+    for(int iii = 0 ; iii < purchaseID ; iii ++)
     {
         printAll(iii);
-    };
+    }    
     printgrandTotal();
     
     
